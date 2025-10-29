@@ -3,6 +3,7 @@ using NLog;
 using NLog.Web;
 using lukovaverakt_42_22;
 using Microsoft.Extensions.Options;
+using lukovaverakt_42_22.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    builder.Services.AddDbContext<TeacherDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
     var app = builder.Build();
